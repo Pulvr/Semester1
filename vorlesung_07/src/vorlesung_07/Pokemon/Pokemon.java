@@ -1,7 +1,7 @@
 package vorlesung_07.Pokemon;
 
 public class Pokemon {
-    enum Type {
+    public enum Type {
         FEUER, WASSER, PFLANZE
     }
 
@@ -13,10 +13,10 @@ public class Pokemon {
     private int maxHealth;
     private int attackDamage;
 
-    Pokemon(String name, int lvl, int exp, Type type, int health, int maxHealth, int attackDamage) {
+    public Pokemon(String name, Type type, int health, int maxHealth, int attackDamage) {
         this.name = name;
-        this.lvl = lvl;
-        this.exp = exp;
+        this.lvl = 1;
+        this.exp = 0;
         this.type = type;
         this.health = health;
         this.maxHealth = maxHealth;
@@ -24,7 +24,8 @@ public class Pokemon {
     }
 
     public void doDamage(Pokemon any) {
-        any.attackDamage -= any.health;
+        System.out.println(this.name + " hat "+ any.name + "angegriffen");
+        any.takeDamage(attackDamage);
     }
 
     public String getName() {
@@ -36,19 +37,24 @@ public class Pokemon {
     }
 
     public void addHealth(int amount) {
-        this.health += amount;
-    }
-
-    protected void takeDamage(int damage) {
-        this.health -= damage;
-        if (this.health < 0) {
-            this.health = 0;
+        if (amount > 0){
+            this.health += amount;
+            if (this.health >= maxHealth) this.health = maxHealth;
+            System.out.println(this.name + " wurde um "+ amount + " geheilt");
         }
+        
+    }
+    
+    protected void takeDamage(int damage) {
+        damage = Math.abs(damage);
+        this.health -= damage;
+        if (this.health < 0) this.health = 0;
+        System.out.println(this.name + " hat  "+ damage + " Punkte Schaden genommen ");
     }
 
     // noch ausbaufähig
     public String toString() {
-        return "Name: " + this.name + "\nLevel: " + this.lvl + "\nHealth: " + this.health;
+        return "Name: " + this.name + "\nLevel: " + this.lvl + "\nHealth: " + this.health+"/"+this.maxHealth;
     }
 
 }

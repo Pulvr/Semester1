@@ -5,10 +5,12 @@ public class MainGame {
     
     
     public static void main(String[] args) {
-        Pokemon poke = new Pokemon("Bisasam", 12, 34, Type.PFLANZE, 40, 240, 30 );
+        Pokemon poke = new Pokemon("Bisasam", Type.PFLANZE, 40, 240, 30 );
         
         System.out.println(poke.getName());
         System.out.println(poke.getHealth());
+
+        poke.addHealth(20);
         
         System.out.println(poke.toString());
     }
