@@ -23,9 +23,9 @@ public class Pokemon {
         this.attackDamage = attackDamage;
     }
 
-    public void doDamage(Pokemon any) {
-        System.out.println(this.name + " hat "+ any.name + "angegriffen");
-        any.takeDamage(attackDamage);
+    public void doDamage(Pokemon other) {
+        System.out.println(this.name + " hat "+ other.name + "angegriffen");
+        other.takeDamage(attackDamage);
     }
 
     public String getName() {
