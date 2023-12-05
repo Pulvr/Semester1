@@ -56,5 +56,5 @@ public class Pokemon {
     public String toString() {
         return "Name: " + this.name + "\nLevel: " + this.lvl + "\nHealth: " + this.health+"/"+this.maxHealth;
     }
-
+    
 }
