@@ -5,13 +5,21 @@ public class MainGame {
     
     
     public static void main(String[] args) {
-        Pokemon poke = new Pokemon("Bisasam", Type.PFLANZE, 100, 30 );
-        
-        System.out.println(poke.getName());
-        System.out.println(poke.getHealth());
+        Pokemon bisa = new Pokemon("Bisasam", Type.PFLANZE, 100);
+        Pokemon gluma = new Pokemon("Glumanda", Type.FEUER, 100);
 
-        poke.addHealth(20);
+        // System.out.println(poke.getName());
+        System.out.println(bisa.getState());
+        System.out.println(gluma.getState());
         
-        System.out.println(poke.toString());
+        System.out.println(bisa.toString());
+        System.out.println(gluma.toString());
+        
+
+        bisa.doDamage(gluma);
+        //System.out.println(bisa.attacks.get(0).toString());
+
+        System.out.println(bisa.getState());
+        System.out.println(gluma.getState());
     }
 }

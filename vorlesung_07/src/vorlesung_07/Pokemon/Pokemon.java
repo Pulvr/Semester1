@@ -1,8 +1,11 @@
 package vorlesung_07.Pokemon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pokemon {
     public enum Type {
-        FEUER, WASSER, PFLANZE
+        FEUER, WASSER, PFLANZE, NORMAL
     }
 
     private String name;
@@ -11,32 +14,33 @@ public class Pokemon {
     public Type type;
     private int health;
     private int maxHealth;
-    private int attackDamage;
+    public List<PokemonAttack> attacks = new ArrayList<PokemonAttack>(); //Pokemon attacken Liste erstellt
+    
+    //Attacken erstellt
+    PokemonAttack tackle = new PokemonAttack("Tackle", 20, Type.NORMAL);
+    PokemonAttack glut = new PokemonAttack("Glut", 40, Type.FEUER); 
+    PokemonAttack kratzer = new PokemonAttack("Kratzer", 40, Type.NORMAL); 
 
     //Konstruktor, Werte wie lvl und exp sind vorab gesetzt. 
-    public Pokemon(String name, Type type, int maxHealth, int attackDamage) {
+    public Pokemon(String name, Type type, int maxHealth) {
         this.name = name;
         this.lvl = 1;
         this.exp = 0;
         this.type = type;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
-        this.attackDamage = attackDamage;
+
+        //attacken wurden hier im Konstruktor geaddet, vermutlich besser sie an einer anderen Stelle zu erstellen
+        //Ansonsten hat jedes Pokemon immer tackle, glut und kratzer. 
+        attacks.add(tackle);
+        attacks.add(glut);
+        attacks.add(kratzer);
     }
 
-    //Methode um anderen Pokemon schaden hinzuzufügen, dafür wird ein Pokemon "other" übergeben
-    //das "other" Pokemon ruft für sich die Methode takeDamage auf und nimmt "attackDamage" des Angreifers
     public void doDamage(Pokemon other) {
-        System.out.println(this.name + " hat "+ other.name + "angegriffen");
-        other.takeDamage(this.attackDamage);
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public int getHealth() {
-        return this.health;
+        int random = (int) (Math.random() * attacks.size());    //zufällige attacke wählen
+        other.takeDamage(this.attacks.get(random).damage);      //nimm schaden in höhe des damage der gewählten attacke
+        System.out.println(this.name + " hat "+ other.name + " mit "+ this.attacks.get(random).name +" angegriffen");
     }
 
     public void addHealth(int amount) {
@@ -48,17 +52,44 @@ public class Pokemon {
         
     }
     
-    
     protected void takeDamage(int damage) {
         damage = Math.abs(damage);                  //damage soll nur positiv sein, also den Betrag nehmen
         this.health -= damage;      
         if (this.health < 0) this.health = 0;       //Health kann nicht weniger als 0 sein
-        System.out.println(this.name + " hat  "+ damage + " Punkte Schaden genommen ");
+        System.out.println(this.name + " hat "+ damage + " Punkte Schaden genommen");
     }
 
-    // noch ausbaufähig
     public String toString() {
-        return "Name: " + this.name + "\nLevel: " + this.lvl + "\nHealth: " + this.health+"/"+this.maxHealth;
+        return "Name: " + this.name + "\nLevel: " + this.lvl + "\nHealth: " + this.health+"/"+this.maxHealth+"\nEXP:"+this.exp+"\n";
     }
     
+     public String getName() {
+        return this.name;
+    }
+
+    public int getHealth() {
+        return this.health;
+    }
+
+    //eigene Methode die getname und getHealth zusammenfasst
+    public String getState(){
+        return this.getName() +" hat "+this.getHealth()+" Gesundheit\n";
+    }
+    
+    //innere Klasse zum darstellen des Angriffs
+    class PokemonAttack{
+        private String name;
+        private int damage;
+        private Type type;
+
+        PokemonAttack(String name, int damage, Type type){
+            this.name = name;
+            this.damage = damage;
+            this.type = type;
+        }
+
+        public String toString(){
+            return this.name+" ( "+this.damage+ " "+ this.type+" )\n";
+        }
+    }
 }
