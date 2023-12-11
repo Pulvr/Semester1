@@ -24,20 +24,25 @@ public class Trainer {
             poke.trainer = this;
             System.out.println(poke.getName() + " wurde gefangen!");
         }
+        else{
+            System.out.println("Pokemon wurde nicht gefangen");
+        }
     }
 
     // counter ausserhalb des for loops definiert, damit der name des gewählten
     // pokemon ausgegeben wird
+    // return, damit die Methode direkt beendet wird, sobald eins gefundne wird. 
     void callPokemon() {
-        int counter = 0;
-        for (; counter < myPokemon.size(); counter++) {
-            if (myPokemon.get(counter).getHealth() > 0) {
-                activePokemon = myPokemon.get(counter);
-                break;
+        
+        for (int i = 0; i < myPokemon.size(); i++) {
+            if (myPokemon.get(i).getHealth() > 0) {
+                activePokemon = myPokemon.get(i);
+                System.out.println("Du bist dran: " + myPokemon.get(i).getName());
+                return;
             }
         }
-        counter = 0;
-        System.out.println("Du bist dran: " + myPokemon.get(counter).getName());
+        activePokemon = null;
+        System.out.println(name+" hat keien kampffähigen Pokemon mehr");
     }
 
     public String getName() {
