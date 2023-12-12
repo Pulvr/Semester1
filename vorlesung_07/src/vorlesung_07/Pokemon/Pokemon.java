@@ -42,8 +42,10 @@ public class Pokemon {
 
     public void doDamage(Pokemon other) {
         int random = (int) (Math.random() * attacks.size()); // zufällige attacke wählen
-        other.takeDamage(this.attacks.get(random).damage); // nimm schaden in höhe des damage der gewählten attacke
-        System.out.println(this.name + " hat " + other.name + " mit " + this.attacks.get(random).name + " angegriffen");
+        Attack atk = this.attacks.get(random);
+        other.takeDamage(atk.damage); // nimm schaden in höhe des damage der gewählten attacke
+        System.out.println(trainer.getName()+"'s "+ this.name + " hat " + other.name + " mit " + this.attacks.get(random).name + " angegriffen");
+        System.out.println(other.name + " hat " + atk.damage + " Punkte Schaden genommen\n");
     }
 
     public void addHealth(int amount) {
@@ -61,7 +63,6 @@ public class Pokemon {
         this.health -= damage;
         if (this.health < 0)
             this.health = 0; // Health kann nicht weniger als 0 sein
-        System.out.println(this.name + " hat " + damage + " Punkte Schaden genommen");
     }
 
     public String toString() {

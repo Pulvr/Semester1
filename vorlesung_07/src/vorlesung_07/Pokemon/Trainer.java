@@ -22,18 +22,17 @@ public class Trainer {
         if (poke.getTrainer() == null) {
             myPokemon.add(poke);
             poke.trainer = this;
-            System.out.println(poke.getName() + " wurde gefangen!");
-        }
-        else{
-            System.out.println("Pokemon wurde nicht gefangen");
+            System.out.println(poke.getName() + " wurde von " + this.getName() + " gefangen!");
+        } else {
+            System.out.println(poke.getName() + " wurde von " + this.getName() + " nicht gefangen");
         }
     }
 
     // counter ausserhalb des for loops definiert, damit der name des gewählten
     // pokemon ausgegeben wird
-    // return, damit die Methode direkt beendet wird, sobald eins gefundne wird. 
+    // return, damit die Methode direkt beendet wird, sobald eins gefundne wird.
     void callPokemon() {
-        
+
         for (int i = 0; i < myPokemon.size(); i++) {
             if (myPokemon.get(i).getHealth() > 0) {
                 activePokemon = myPokemon.get(i);
@@ -42,10 +41,37 @@ public class Trainer {
             }
         }
         activePokemon = null;
-        System.out.println(name+" hat keien kampffähigen Pokemon mehr");
+        System.out.println(this.getName() + " hat keine kampffähigen Pokemon mehr");
+    }
+
+    // das aktive mon vom Trainer nehmen und dem gegener mon damage machen
+    // es wird geprüft, ob eins der mons besiegt wurde um text auszugeben
+    public void fight(Trainer enemy) {
+        activePokemon.doDamage(enemy.activePokemon);
+
+        if (activePokemon.getHealth() == 0) {
+            System.out.println(this.getName() + "'s " + activePokemon.getName() + " wurde besiegt");
+        } else if (enemy.activePokemon.getHealth() == 0) {
+            System.out.println(enemy.getName() + "'s " + enemy.activePokemon.getName() + " wurde besiegt");
+        }
+    }
+
+    // ähnlich wie callPokemon(), es wird über mypokemon iteriert und geprüft, ob
+    // noch aktive mons vorhanden sind.
+    public boolean isReadyToFight() {
+        for (int i = 0; i < myPokemon.size(); i++) {
+            if (myPokemon.get(i).getHealth() > 0) {
+                activePokemon = myPokemon.get(i);
+                return true;
+            }
+        }
+        activePokemon = null;
+        System.out.println(this.getName() + " hat keine kampffähigen Pokemon mehr");
+        return false;
     }
 
     public String getName() {
         return this.name;
     }
+
 }
