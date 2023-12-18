@@ -32,7 +32,7 @@ public class MainGame {
         // solange einer von beiden noch pokemon hat, gegeneinander kämpfen
         // Unterstrich zum visuellen trennen der Schleifenelemente voneinander
         // Ebenfalls HP ausgabe jedes aktiven mons für mehr infos
-        while (ash.isReadyToFight() == true && garry.isReadyToFight()) {
+        while (ash.isReadyToFight() == true && garry.isReadyToFight() == true) {
             System.out.println("___________________________");
             garry.fight(ash);
             ash.fight(garry);

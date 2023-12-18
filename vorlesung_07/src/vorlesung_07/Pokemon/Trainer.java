@@ -13,11 +13,9 @@ public class Trainer {
         this.name = name;
     }
 
-    // Methode zum Fangen der Pokemon, es wird das zu fangende mon und der Trainer
-    // übergeben
-    // dem das mon zugehörig ist. Zuerst prüfen, ob dem mon nicht schon ein trainer
-    // zugeordnet ist
-    // dem pokemon wird der trainer zugewiesen
+    // Methode zum Fangen der Pokemon, es wird das zu fangende mon übergeben.
+    // Zuerst prüfen, ob dem mon schon einen trainer hat
+    // dem mon wird der trainer zugewiesen sobald gefangen
     public void catchPokemon(Pokemon poke) {
         if (poke.getTrainer() == null) {
             myPokemon.add(poke);
@@ -28,9 +26,8 @@ public class Trainer {
         }
     }
 
-    // counter ausserhalb des for loops definiert, damit der name des gewählten
-    // pokemon ausgegeben wird
-    // return, damit die Methode direkt beendet wird, sobald eins gefundne wird.
+
+    // return, damit die Methode direkt beendet wird, sobald eins gefunden wird.
     void callPokemon() {
 
         for (int i = 0; i < myPokemon.size(); i++) {

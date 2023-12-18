@@ -1,5 +1,6 @@
 *.class
 *.pdf
 *.code-workspace
+*.zip
 
 .metadata/
