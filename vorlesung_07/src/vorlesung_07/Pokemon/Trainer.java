@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Trainer {
-    public String name;
+    private String name;
     private List<Pokemon> myPokemon = new ArrayList<Pokemon>();
-    public Pokemon activePokemon;
+    private Pokemon activePokemon;
 
     // Konstruktor
     Trainer(String name) {
@@ -69,6 +69,14 @@ public class Trainer {
 
     public String getName() {
         return this.name;
+    }
+
+    public Pokemon getActivePokemon(){
+        return this.activePokemon;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 
 }

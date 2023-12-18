@@ -1,15 +1,20 @@
 package vorlesung_07.Pokemon;
 
+import vorlesung_07.Pokemon.Feuer.Glumanda;
+import vorlesung_07.Pokemon.Pflanze.Bisaknosp;
+import vorlesung_07.Pokemon.Pflanze.Bisasam;
 import vorlesung_07.Pokemon.Pokemon.Type;
+import vorlesung_07.Pokemon.Wasser.Schiggy;
 
 public class MainGame {
 
     public static void main(String[] args) {
         // Pokemon erstellen
-        Pokemon bisa = new Pokemon("Bisasam", Type.PFLANZE, 100);
-        Pokemon gluma = new Pokemon("Glumanda", Type.FEUER, 100);
-        Pokemon schig = new Pokemon("Schiggy", Type.WASSER, 100);
-        Pokemon rat = new Pokemon("Rattfratz", Type.NORMAL, 100);
+        Bisasam bisa = new Bisasam("Bisasam", Type.PFLANZE, 100);
+        Glumanda gluma = new Glumanda("Glumanda", Type.FEUER, 100);
+        Schiggy schig = new Schiggy("Schiggy", Type.WASSER, 100);
+        Bisaknosp knosp = new Bisaknosp("Bisaknosp", Type.PFLANZE, 100);
+        // Pokemon rat = new Pokemon("Rattfratz", Type.NORMAL, 100);
 
         // State ausgeben lassen
         System.out.println(bisa.getState());
@@ -21,8 +26,8 @@ public class MainGame {
 
         // Trainer auf pokemon verteilt
         ash.catchPokemon(bisa);
-        ash.catchPokemon(rat);
-        garry.catchPokemon(gluma);
+        ash.catchPokemon(gluma);
+        garry.catchPokemon(knosp);
         garry.catchPokemon(schig);
 
         // aktives Pokemon vorm Kampf setzen, da aktives mon sonst null
@@ -36,8 +41,8 @@ public class MainGame {
             System.out.println("___________________________");
             garry.fight(ash);
             ash.fight(garry);
-            System.out.println(garry.activePokemon.getName()+ " " + garry.activePokemon.getHealth());
-            System.out.println(ash.activePokemon.getName()+ " "+  ash.activePokemon.getHealth()+"\n");
+            System.out.println(garry.getActivePokemon().getName()+ " " + garry.getActivePokemon().getHealth());
+            System.out.println(ash.getActivePokemon().getName()+ " "+  ash.getActivePokemon().getHealth()+"\n");
         }
 
     }

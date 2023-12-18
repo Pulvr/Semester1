@@ -11,19 +11,22 @@ public class Pokemon {
     private String name;
     private int lvl;
     private int exp;
-    public Type type;
+    private Type type;
     private int health;
     private int maxHealth;
     private List<Attack> attacks = new ArrayList<Attack>(); // Pokemon attacken Liste erstellt
     public Trainer trainer;
 
     // Attacken erstellt
+    //auf protected geändert, damit Unterklassen drauf zugreifen dürfen
     Attack tackle = new Attack("Tackle", 40, Type.NORMAL);
-    Attack glut = new Attack("Glut", 30, Type.FEUER);
-    Attack kratzer = new Attack("Kratzer", 20, Type.NORMAL);
+    protected Attack glut = new Attack("Glut", 15, Type.FEUER);
+    protected Attack aquaknarre = new Attack("Aquaknarre", 15, Type.WASSER);
+    protected Attack rankenhieb = new Attack("Rankenhieb", 15, Type.PFLANZE);
+    protected Attack rasierblatt = new Attack("Rasierblatt", 20, Type.PFLANZE);
 
     // Konstruktor, Werte wie lvl und exp sind vorab gesetzt.
-    public Pokemon(String name, Type type, int maxHealth) {
+    protected Pokemon(String name, Type type, int maxHealth) {
         this.name = name;
         this.lvl = 1;
         this.exp = 0;
@@ -32,12 +35,10 @@ public class Pokemon {
         this.health = maxHealth;
         this.trainer = null;
 
-        // attacken wurden hier im Konstruktor geaddet, vermutlich besser sie an einer
-        // anderen Stelle zu erstellen
-        // Ansonsten hat jedes Pokemon immer tackle, glut und kratzer.
+        // fürs erste hat jedes Pokemon Tackle
+        // attacken adding funktioniert jetzt im Konstruktor der jeweiligen unterKlasse
         attacks.add(tackle);
-        attacks.add(glut);
-        attacks.add(kratzer);
+
     }
 
     public void doDamage(Pokemon other) {
@@ -94,6 +95,10 @@ public class Pokemon {
 
     public List<Attack> getAttacks() {
         return this.attacks;
+    }
+
+    public Type getType(){
+        return this.type;
     }
 
     // eigene Methode die getname und getHealth zusammenfasst
