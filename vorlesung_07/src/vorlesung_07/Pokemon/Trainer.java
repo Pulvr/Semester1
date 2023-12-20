@@ -1,5 +1,7 @@
 package vorlesung_07.Pokemon;
 
+//Aufgabe 8 Pokemon : Florian Wendel - florian.wendel@haw-hamburg.de
+
 import java.util.List;
 import java.util.ArrayList;
 

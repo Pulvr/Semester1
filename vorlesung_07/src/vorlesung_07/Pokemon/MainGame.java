@@ -1,5 +1,7 @@
 package vorlesung_07.Pokemon;
 
+//Aufgabe 8 Pokemon : Florian Wendel - florian.wendel@haw-hamburg.de
+
 import vorlesung_07.Pokemon.Feuer.Glumanda;
 import vorlesung_07.Pokemon.Pflanze.Bisaknosp;
 import vorlesung_07.Pokemon.Pflanze.Bisasam;
@@ -46,7 +48,7 @@ public class MainGame {
             if (garry.getActivePokemon()!=null) System.out.println("Garry: "+garry.getActivePokemon().getName()+ " " + garry.getActivePokemon().getHealth() +"/100");
             if (ash.getActivePokemon()!=null) System.out.println("Ash: "+ash.getActivePokemon().getName()+ " "+  ash.getActivePokemon().getHealth()+"/100\n");
         }
-        
+
         //finale Ausgabe wer gewonnen hat. 
         System.out.println("");
         if (ash.getActivePokemon() == null){

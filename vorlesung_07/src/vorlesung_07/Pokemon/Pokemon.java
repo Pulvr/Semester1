@@ -3,6 +3,8 @@ package vorlesung_07.Pokemon;
 import java.util.ArrayList;
 import java.util.List;
 
+//Aufgabe 8 Pokemon : Florian Wendel - florian.wendel@haw-hamburg.de
+
 public class Pokemon {
     public enum Type {
         FEUER, WASSER, PFLANZE, NORMAL

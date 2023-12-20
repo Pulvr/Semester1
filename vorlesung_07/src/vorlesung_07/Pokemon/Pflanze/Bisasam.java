@@ -1,5 +1,7 @@
 package vorlesung_07.Pokemon.Pflanze;
 
+//Aufgabe 8 Pokemon : Florian Wendel - florian.wendel@haw-hamburg.de
+
 import vorlesung_07.Pokemon.Pokemon;
 
 public class Bisasam extends Pokemon {
