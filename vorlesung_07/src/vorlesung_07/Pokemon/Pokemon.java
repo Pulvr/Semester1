@@ -18,12 +18,13 @@ public class Pokemon {
     public Trainer trainer;
 
     // Attacken erstellt
-    //auf protected geändert, damit Unterklassen drauf zugreifen dürfen
-    Attack tackle = new Attack("Tackle", 40, Type.NORMAL);
-    protected Attack glut = new Attack("Glut", 15, Type.FEUER);
-    protected Attack aquaknarre = new Attack("Aquaknarre", 15, Type.WASSER);
-    protected Attack rankenhieb = new Attack("Rankenhieb", 15, Type.PFLANZE);
-    protected Attack rasierblatt = new Attack("Rasierblatt", 20, Type.PFLANZE);
+    // auf protected geändert, damit Unterklassen drauf zugreifen dürfen
+    // Schaden wegen dem multiplier aus typechecker "halbiert" und auf int gelassen
+    Attack tackle = new Attack("Tackle", 10, Type.NORMAL);
+    protected Attack glut = new Attack("Glut", 7, Type.FEUER);
+    protected Attack aquaknarre = new Attack("Aquaknarre", 7, Type.WASSER);
+    protected Attack rankenhieb = new Attack("Rankenhieb", 7, Type.PFLANZE);
+    protected Attack rasierblatt = new Attack("Rasierblatt", 10, Type.PFLANZE);
 
     // Konstruktor, Werte wie lvl und exp sind vorab gesetzt.
     protected Pokemon(String name, Type type, int maxHealth) {
@@ -41,30 +42,82 @@ public class Pokemon {
 
     }
 
-    public void doDamage(Pokemon other) {
-        int random = (int) (Math.random() * attacks.size()); // zufällige attacke wählen
-        Attack atk = this.attacks.get(random);
-        other.takeDamage(atk.damage); // nimm schaden in höhe des damage der gewählten attacke
-        System.out.println(trainer.getName() + "'s " + this.name + " hat " + other.name + " mit "
-                + this.attacks.get(random).name + " angegriffen");
-        System.out.println(other.name + " hat " + atk.damage + " Punkte Schaden genommen\n");
+    protected void doDamage(Pokemon enemyPokemon) {
+        int randomAtk = (int) (Math.random() * attacks.size()); // zufällige attacke wählen
+        int multiplier = this.typeChecker(enemyPokemon, randomAtk); //multiplier erstellen
+
+        Attack atk = this.attacks.get(randomAtk); //attack holen
+        enemyPokemon.takeDamage(atk.damage * multiplier); // nimm schaden von atk.damage * multiplier
+
+        System.out.println(trainer.getName() + "'s " + this.getName() + " hat " + enemyPokemon.getName() + " mit "
+                + this.attacks.get(randomAtk).name + " angegriffen");
+
+        //Extra Textausgabe wenn effektiv/nicht effektiv
+        if (multiplier==4) System.out.println("Das war sehr effektiv!");
+        else if (multiplier==1) System.out.println("Das war nicht sehr effektiv!");
+
+        //Edge Case Ausgabe für Angriff auf Schiggy. Dann Ausgabe -1 weil er ja weniger damage nimmt. 
+        if (enemyPokemon.getName().equals("Schiggy")) {
+            System.out.println(enemyPokemon.getName() + " hat " + ((atk.damage * multiplier)-1) + " Punkte Schaden genommen\n");
+        }else{
+            System.out.println(enemyPokemon.getName() + " hat " + (atk.damage * multiplier) + " Punkte Schaden genommen\n");
+        }
+    }
+
+    protected void takeDamage(int damage) {
+        damage = Math.abs(damage); // damage soll nur positiv sein, also den Betrag nehmen
+        this.health -= damage;
+        if (this.health < 0)
+            this.health = 0; // Health kann nicht weniger als 0 sein
+    }
+    
+
+    // returned einen multiplier, wenn eine attacke stark gegen einen Typen ist
+    // es wird also zuerst der attacken typ, dann der angreifer typ abgefragt
+    // mit integer gemacht und multiplier by default auf 2 gestellt. Ansonsten hätte
+    // überall health und damage auf float umstellen müssen für den multiplier
+    public int typeChecker(Pokemon enemy, int counter) {
+        int multiplier = 2;
+        //effektiv
+        if (this.getAttacks().get(counter).getType() == Type.WASSER && enemy.getType() == Type.FEUER) {
+            multiplier = 4;
+        }
+        if (this.getAttacks().get(counter).getType() == Type.FEUER && enemy.getType() == Type.PFLANZE) {
+            multiplier = 4;
+        }
+        if (this.getAttacks().get(counter).getType() == Type.PFLANZE && enemy.getType() == Type.WASSER) {
+            multiplier = 4;
+        }
+        //nicht sehr effektiv
+        if (this.getAttacks().get(counter).getType() == Type.WASSER && enemy.getType() == Type.WASSER) {
+            multiplier = 1;
+        }
+        if (this.getAttacks().get(counter).getType() == Type.WASSER && enemy.getType() == Type.PFLANZE) {
+            multiplier = 1;
+        }
+        if (this.getAttacks().get(counter).getType() == Type.FEUER && enemy.getType() == Type.FEUER) {
+            multiplier = 1;
+        }
+        if (this.getAttacks().get(counter).getType() == Type.FEUER && enemy.getType() == Type.WASSER) {
+            multiplier = 1;
+        }
+        if (this.getAttacks().get(counter).getType() == Type.PFLANZE && enemy.getType() == Type.FEUER) {
+            multiplier = 1;
+        }
+        if (this.getAttacks().get(counter).getType() == Type.PFLANZE && enemy.getType() == Type.PFLANZE) {
+            multiplier = 1;
+        }
+        return multiplier;
     }
 
     public void addHealth(int amount) {
-        if (amount > 0) { // prüfen ob Gesundheit added mehr als 0 ist, erst dann hinzufü
+        if (amount > 0) { // prüfen ob Gesundheit added mehr als 0 ist, erst dann adden
             this.health += amount;
             if (this.health >= maxHealth)
                 this.health = maxHealth; // Gesundheit kann nicht mehr sein als maxHealth
             System.out.println(this.name + " wurde um " + amount + " geheilt");
         }
 
-    }
-
-    void takeDamage(int damage) {
-        damage = Math.abs(damage); // damage soll nur positiv sein, also den Betrag nehmen
-        this.health -= damage;
-        if (this.health < 0)
-            this.health = 0; // Health kann nicht weniger als 0 sein
     }
 
     public String toString() {
@@ -97,13 +150,17 @@ public class Pokemon {
         return this.attacks;
     }
 
-    public Type getType(){
+    public Type getType() {
         return this.type;
     }
 
     // eigene Methode die getname und getHealth zusammenfasst
     public String getState() {
         return this.getName() + " hat " + this.getHealth() + " Gesundheit\n";
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public void setLevel(int lvl) {
@@ -118,22 +175,22 @@ public class Pokemon {
         }
     }
 
-    public void addAttack(Attack atk){
+    public void addAttack(Attack atk) {
         this.getAttacks().add(atk);
     }
 
-    private void checkLevelUp(){
-        if (this.getExp()>=100){
+    private void checkLevelUp() {
+        if (this.getExp() >= 100) {
             this.exp = 0;
             this.lvl += 1;
-            System.out.println("Glueckwunsch!,  "+this.getName()+" ist jetzt Level: "+this.getLevel());
-        }else{
-            System.out.println(this.getName()+" benötigt noch "+(100 - this.exp)+" XP zum LevelUP");
+            System.out.println("Glueckwunsch!,  " + this.getName() + " ist jetzt Level: " + this.getLevel());
+        } else {
+            System.out.println(this.getName() + " benötigt noch " + (100 - this.exp) + " XP zum LevelUP");
         }
     }
 
     // innere Klasse zum darstellen des Angriffs
-    class Attack {
+    protected class Attack {
         private String name;
         private int damage;
         private Type type;
@@ -143,6 +200,12 @@ public class Pokemon {
             this.damage = damage;
             this.type = type;
         }
+
+
+        public Type getType() {
+            return this.type;
+        }
+
 
         public String toString() {
             return this.name + " ( " + this.damage + " " + this.type + " )\n";

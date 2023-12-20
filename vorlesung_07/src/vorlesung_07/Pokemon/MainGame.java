@@ -25,10 +25,10 @@ public class MainGame {
         Trainer garry = new Trainer("Garry");
 
         // Trainer auf pokemon verteilt
-        ash.catchPokemon(bisa);
+        ash.catchPokemon(schig);
         ash.catchPokemon(gluma);
         garry.catchPokemon(knosp);
-        garry.catchPokemon(schig);
+        garry.catchPokemon(bisa);
 
         // aktives Pokemon vorm Kampf setzen, da aktives mon sonst null
         garry.callPokemon();
@@ -37,12 +37,22 @@ public class MainGame {
         // solange einer von beiden noch pokemon hat, gegeneinander kämpfen
         // Unterstrich zum visuellen trennen der Schleifenelemente voneinander
         // Ebenfalls HP ausgabe jedes aktiven mons für mehr infos
-        while (ash.isReadyToFight() == true && garry.isReadyToFight() == true) {
+        while (ash.getActivePokemon()!=null && garry.getActivePokemon()!=null) {
             System.out.println("___________________________");
-            garry.fight(ash);
-            ash.fight(garry);
-            System.out.println(garry.getActivePokemon().getName()+ " " + garry.getActivePokemon().getHealth());
-            System.out.println(ash.getActivePokemon().getName()+ " "+  ash.getActivePokemon().getHealth()+"\n");
+            
+            if (garry.isReadyToFight()) garry.fight(ash);
+            if (ash.isReadyToFight()) ash.fight(garry);
+
+            if (garry.getActivePokemon()!=null) System.out.println("Garry: "+garry.getActivePokemon().getName()+ " " + garry.getActivePokemon().getHealth() +"/100");
+            if (ash.getActivePokemon()!=null) System.out.println("Ash: "+ash.getActivePokemon().getName()+ " "+  ash.getActivePokemon().getHealth()+"/100\n");
+        }
+        
+        //finale Ausgabe wer gewonnen hat. 
+        System.out.println("");
+        if (ash.getActivePokemon() == null){
+            System.out.println(ash.getName() + " wurde besiegt");
+        }else{
+            System.out.println(garry.getName() + " wurde besiegt");
         }
 
     }

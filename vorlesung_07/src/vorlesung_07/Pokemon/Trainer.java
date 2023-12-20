@@ -26,7 +26,6 @@ public class Trainer {
         }
     }
 
-
     // return, damit die Methode direkt beendet wird, sobald eins gefunden wird.
     void callPokemon() {
 
@@ -43,13 +42,17 @@ public class Trainer {
 
     // das aktive mon vom Trainer nehmen und dem gegener mon damage machen
     // es wird geprüft, ob eins der mons besiegt wurde um text auszugeben
-    public void fight(Trainer enemy) {
-        activePokemon.doDamage(enemy.activePokemon);
+    // es wird nur dann gekämpft, wenn ein aktives Pokemon vorhanden ist, sonst NullPointer
+    public void fight(Trainer enemyTrainer) {
+        if (enemyTrainer.getActivePokemon() != null) {
+            activePokemon.doDamage(enemyTrainer.getActivePokemon());
 
-        if (activePokemon.getHealth() == 0) {
-            System.out.println(this.getName() + "'s " + activePokemon.getName() + " wurde besiegt");
-        } else if (enemy.activePokemon.getHealth() == 0) {
-            System.out.println(enemy.getName() + "'s " + enemy.activePokemon.getName() + " wurde besiegt");
+            if (activePokemon.getHealth() == 0) {
+                System.out.println(this.getName() + "'s " + getActivePokemon().getName() + " wurde besiegt");
+            } else if (enemyTrainer.getActivePokemon().getHealth() == 0) {
+                System.out.println(
+                        enemyTrainer.getName() + "'s " + enemyTrainer.getActivePokemon().getName() + " wurde besiegt");
+            }
         }
     }
 
@@ -71,11 +74,11 @@ public class Trainer {
         return this.name;
     }
 
-    public Pokemon getActivePokemon(){
+    public Pokemon getActivePokemon() {
         return this.activePokemon;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
