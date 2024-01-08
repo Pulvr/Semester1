@@ -19,7 +19,7 @@ public class Pokemon {
 	private List<Attack> attacks = new ArrayList<Attack>();
 	
 	//=== KONSTRUKTOR ===
-	public Pokemon(String name, Type type)
+	protected Pokemon(String name, Type type)
 	{
 		this.name = name;
 		setLevel(1);
