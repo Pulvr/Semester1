@@ -12,7 +12,7 @@ public class MainGame {
 
     public static void main(String[] args) {
         // Pokemon erstellen
-        Bisasam bisa = new Bisasam("Bisasam", Type.PFLANZE, 100);
+        Bisasam bisa = new Bisasam();
         Glumanda gluma = new Glumanda("Glumanda", Type.FEUER, 100);
         Schiggy schig = new Schiggy("Schiggy", Type.WASSER, 100);
         Bisaknosp knosp = new Bisaknosp("Bisaknosp", Type.PFLANZE, 100);
