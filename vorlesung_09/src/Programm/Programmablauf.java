@@ -1,5 +1,6 @@
 package Programm;
 
+import Item.HealthPotion;
 import Pokemon.Pokemon;
 import Pokemon.Feuer.Glumanda;
 import Pokemon.Pflanze.Bisaknosp;
@@ -12,8 +13,10 @@ public class Programmablauf {
 		Pokemon p1 = new Glumanda();
 		Pokemon p2 = new Shiggy();
 		
-		Trainer t1 = new Trainer("Ashe");
+		Trainer t1 = new Trainer("Ash");
 		Trainer t2 = new Trainer("Rocket");
+
+		t1.inventory = new HealthPotion(1, t1);
 		
 		// Pokemon den Trainern zuordnen
 		t1.catchPokemon(p1);
@@ -38,6 +41,17 @@ public class Programmablauf {
 			attacker = defender;
 			defender = tmp;
 			
+			if (attacker.activePokemon!=null)
+			{
+				if (attacker.activePokemon.getHealth() < attacker.activePokemon.getMaxHealth()/2)
+				{
+					
+					if (attacker.inventory != null && attacker.inventory.getClass() == HealthPotion.class)
+					{
+						attacker.inventory.use();
+					}
+				}
+			}
 			System.out.println("\n" + round++ + ". Runde");
 			attacker.fight(defender);			
 		}

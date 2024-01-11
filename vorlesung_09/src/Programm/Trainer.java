@@ -2,6 +2,8 @@ package Programm;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Item.Item;
 import Pokemon.Pokemon;
 
 public class Trainer {
@@ -9,7 +11,7 @@ public class Trainer {
 	public String name;
 	private List<Pokemon> myPokemon = new ArrayList<Pokemon>();
 	public Pokemon activePokemon;
-	
+	public Item inventory;
 	//Konstruktor
 	public Trainer(String name)
 	{

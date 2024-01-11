@@ -1,6 +1,7 @@
 package Pokemon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -87,6 +88,12 @@ public class Pokemon {
 		return health;
 	}
 	
+	public int getMaxHealth()
+	{
+		return maxHealth;
+	}
+	
+	
 	public void addHealth(int amount)
 	{
 		health += Math.abs(amount);
@@ -120,7 +127,7 @@ public class Pokemon {
 			Random rd = new Random();
 			Attack atk = attacks.get(rd.nextInt(attacks.size()));	
 			System.out.println(this + " greift " + other + " mit " + atk + " an.");
-			other.takeDamage(atk.damage);
+			other.takeDamage(atk.calcDamage(other));
 			
 			
 			// prüfen ob der Gegner schon besiegt wurde.
@@ -134,9 +141,12 @@ public class Pokemon {
 	//=== INNER CLASS ===
 	public class Attack
 	{
-		private String name;
-		private int damage;
-		private Type type;
+		protected String name;
+		protected int damage;
+		protected Type type;
+		protected List<Type> effective = new ArrayList<Type>();
+		protected List<Type> resistant = new ArrayList<Type>();
+		
 		
 		public Attack(String name, int damage, Type type)
 		{
@@ -144,11 +154,53 @@ public class Pokemon {
 			this.damage = damage;
 			this.type = type;
 		}
+
+		public int calcDamage(Pokemon other){
+			int calcDamage = damage;
+
+			if (effective.contains(other.type)){
+				calcDamage *=2;
+				System.out.println(name + " ist sehr effektiv!");
+			}else if (resistant.contains(other.type)){
+				calcDamage /=2;
+				System.out.println(name + " ist nicht sehr effektiv!");
+			}
+
+			return calcDamage;
+		}
 		
 		public String toString()
 		{
-			return name + "(" + type +")";
+			return name + "(" + damage + " " + type +")";
+		}
+
+	}
+
+	public class Attack_Plant extends Attack {
+		
+		public Attack_Plant(String name, int dmg){
+			super(name,dmg,Type.PFLANZE);
+			effective = Arrays.asList(Type.WASSER);
+			resistant = Arrays.asList(Type.FEUER, Type.PFLANZE);
 		}
 	}
-	
+
+	public class Attack_Fire extends Attack {
+		
+		public Attack_Fire(String name, int dmg){
+			super(name,dmg,Type.FEUER);
+			effective = Arrays.asList(Type.PFLANZE);
+			resistant = Arrays.asList(Type.FEUER, Type.WASSER);
+		}
+	}
+
+	public class Attack_Water extends Attack {
+		
+		public Attack_Water(String name, int dmg){
+			super(name,dmg,Type.WASSER);
+			effective = Arrays.asList(Type.FEUER);
+			resistant = Arrays.asList(Type.WASSER, Type.PFLANZE);
+		}
+	}
+
 }
