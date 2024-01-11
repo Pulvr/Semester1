@@ -16,7 +16,7 @@ public class Programmablauf {
 		Trainer t1 = new Trainer("Ash");
 		Trainer t2 = new Trainer("Rocket");
 
-		t1.inventory = new HealthPotion(1, t1);
+		//t1.inventory = new HealthPotion(1, t1);
 		
 		// Pokemon den Trainern zuordnen
 		t1.catchPokemon(p1);

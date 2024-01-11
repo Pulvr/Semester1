@@ -3,6 +3,7 @@ package Item;
 import Programm.Trainer;
 
 public class Item {
+
     public String name;
     protected int count;
     protected Trainer owner;
@@ -27,6 +28,10 @@ public class Item {
 
     public int getCount(){
         return this.count;
+    }
+
+    public String getName(){
+        return this.name;
     }
 
     public String toString(){
