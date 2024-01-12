@@ -93,6 +93,10 @@ public class Pokemon {
 		return maxHealth;
 	}
 	
+	public String getName() 
+	{
+		return this.name;
+	}
 	
 	public void addHealth(int amount)
 	{
@@ -157,7 +161,7 @@ public class Pokemon {
 
 		public int calcDamage(Pokemon other){
 			int calcDamage = damage;
-
+			
 			if (effective.contains(other.type)){
 				calcDamage *=2;
 				System.out.println(name + " ist sehr effektiv!");
@@ -165,7 +169,7 @@ public class Pokemon {
 				calcDamage /=2;
 				System.out.println(name + " ist nicht sehr effektiv!");
 			}
-
+			
 			return calcDamage;
 		}
 		
@@ -173,30 +177,36 @@ public class Pokemon {
 		{
 			return name + "(" + damage + " " + type +")";
 		}
-
+		
 	}
 
-	public class Attack_Plant extends Attack {
+	public class Attack_Plant extends Attack 
+	{
 		
-		public Attack_Plant(String name, int dmg){
+		public Attack_Plant(String name, int dmg)
+		{
 			super(name,dmg,Type.PFLANZE);
 			effective = Arrays.asList(Type.WASSER);
 			resistant = Arrays.asList(Type.FEUER, Type.PFLANZE);
 		}
 	}
 
-	public class Attack_Fire extends Attack {
+	public class Attack_Fire extends Attack 
+	{
 		
-		public Attack_Fire(String name, int dmg){
+		public Attack_Fire(String name, int dmg)
+		{
 			super(name,dmg,Type.FEUER);
 			effective = Arrays.asList(Type.PFLANZE);
 			resistant = Arrays.asList(Type.FEUER, Type.WASSER);
 		}
 	}
 
-	public class Attack_Water extends Attack {
+	public class Attack_Water extends Attack 
+	{
 		
-		public Attack_Water(String name, int dmg){
+		public Attack_Water(String name, int dmg)
+		{
 			super(name,dmg,Type.WASSER);
 			effective = Arrays.asList(Type.FEUER);
 			resistant = Arrays.asList(Type.WASSER, Type.PFLANZE);
