@@ -9,4 +9,7 @@ public class Bisaknosp extends Bisasam {
 		addAttack(new Attack("Rasierblatt", 25, Type.PFLANZE));
 		setLevel(3);
 	}	
+	public void speak(){
+		System.out.println("BISAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!");
+	}
 }

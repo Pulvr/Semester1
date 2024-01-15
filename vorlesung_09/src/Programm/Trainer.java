@@ -67,6 +67,7 @@ public class Trainer
 			{
 				activePokemon = p;
 				System.out.println(name + ": " + p + " ich rufe dich!");
+				p.speak();
 				return;
 			}
 		}

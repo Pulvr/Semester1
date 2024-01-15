@@ -19,4 +19,8 @@ public class Shiggy extends Pokemon {
 	{
 		super.takeDamage(dmg-1);
 	}
+	public void speak()
+	{
+		System.out.println(this.getName()+"!");
+	}
 }

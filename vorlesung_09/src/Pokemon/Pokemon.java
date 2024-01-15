@@ -7,7 +7,7 @@ import java.util.Random;
 
 import Programm.Trainer;
 
-public class Pokemon {
+public abstract class Pokemon {
 	//=== ATTRIBUTE ===
 	public enum Type { NORMAL, FEUER, WASSER, PFLANZE }
 	private String name;
@@ -141,6 +141,8 @@ public class Pokemon {
 			}
 		}		
 	}
+
+	public abstract void speak();
 	
 	//=== INNER CLASS ===
 	public class Attack
@@ -159,13 +161,17 @@ public class Pokemon {
 			this.type = type;
 		}
 
-		public int calcDamage(Pokemon other){
+		public int calcDamage(Pokemon other)
+		{
 			int calcDamage = damage;
 			
-			if (effective.contains(other.type)){
+			if (effective.contains(other.type))
+			{
 				calcDamage *=2;
 				System.out.println(name + " ist sehr effektiv!");
-			}else if (resistant.contains(other.type)){
+			}
+			else if (resistant.contains(other.type))
+			{
 				calcDamage /=2;
 				System.out.println(name + " ist nicht sehr effektiv!");
 			}

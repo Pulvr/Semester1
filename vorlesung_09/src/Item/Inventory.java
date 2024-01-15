@@ -31,9 +31,13 @@ public class Inventory
     //Wenn die erlaubte Gesamtzahl nicht überschritten wird, Item adden
     public void add(Item item)
     {
-        if ( getItemCount() < maxSize)
+        if ( getItemCount() < maxSize && owner != null)
         {
             this.items.add(item);
+        }
+        else
+        {
+            System.out.println(item.getName()+ " kann nicht hinzugefügt werden, kein Platz");
         }
     }
 

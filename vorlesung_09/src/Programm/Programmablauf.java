@@ -16,7 +16,6 @@ public class Programmablauf {
 
 		Trainer t1 = new Trainer("Ash");
 		Trainer t2 = new Trainer("Rocket");
-
 		
 		// Pokemon den Trainern zuordnen
 		t1.catchPokemon(p1);

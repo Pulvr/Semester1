@@ -10,6 +10,11 @@ public class Glumanda extends Pokemon{
 		addAttack(new Attack("Glut", 20, Type.FEUER));
 	}
 	
+	public void speak()
+	{
+		System.out.println(this.getName()+"!");
+	}
+
 	public Glumanda()
 	{
 		this("Glumanda");

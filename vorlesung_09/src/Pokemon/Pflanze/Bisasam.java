@@ -14,4 +14,9 @@ public class Bisasam extends Pokemon{
 	{
 		this("Bisasam");
 	}
+
+	public void speak()
+	{
+		System.out.println(this.getName()+"!");
+	}
 }
